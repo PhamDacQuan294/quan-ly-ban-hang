@@ -1,3 +1,8 @@
+.title {
+  /* Trên phải dưới trái */
+  margin: 20px 0 20px 150px; 
+}
+
 body {
   background-color: #f9fafb;
   font-family: 'Segoe UI', sans-serif;
@@ -12,26 +17,42 @@ body {
   z-index: 1000;
 }
 
-/* SIDEBAR */
-.sidebar {
+/* Body */
+.body .sider {
   width: 250px;
   background-color: #ffffff;
-  min-height: 100vh;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 95px;
+  left: 0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
-  padding: 20px;
 }
 
-.menu ul {
+.body .main {
+  position: relative;
+  left: 150px;
+  width: calc(100% - 180px);
+}
+
+.body .main .table {
+  width: calc(100% - 200px);
+  margin-right: auto;
+  margin-left: auto;
+}
+/* End Body */
+
+/* Sider */
+.sider .inner-menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.menu li {
+.sider .inner-menu ul li {
   margin-bottom: 10px;
 }
 
-.menu a {
+.sider .inner-menu ul li a {
   display: block;
   padding: 8px 12px;
   color: #4b5563;
@@ -40,40 +61,36 @@ body {
   transition: 0.2s;
 }
 
-.menu a:hover,
-.menu a.active {
+.sider .inner-menu ul li a:hover,
+.sider .inner-menu ul li a.active {
   background-color: #e5f0ff;
   color: #2563eb;
 }
+/* End Sider */
 
-.menu a i {
-  margin-right: 10px;
-}
-
-/* MAIN CONTENT */
-.content .card {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.chart-area,
-.donut-chart {
+/* table */
+table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
   border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* Custom badge dot */
-.badge-dot::before {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: currentColor;
-  border-radius: 50%;
-  margin-right: 4px;
-  vertical-align: middle;
+table thead {
+  background-color: #f1f5f9;
+  color: #333;
+  text-align: left;
 }
 
-.bg-success { color: #10b981; }
-.bg-purple { color: #8b5cf6; }
-.bg-warning { color: #f59e0b; }
+table tbody tr:hover {
+  background-color: #f9fafc;
+}
+
+table img {
+  border-radius: 4px;
+  max-width: 70px;
+  height: auto;
+}
+/* End table */
