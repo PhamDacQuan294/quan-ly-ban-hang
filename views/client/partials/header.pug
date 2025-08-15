@@ -1,0 +1,57 @@
+header.header 
+  .container 
+    .row 
+      .col-12 
+        .welcome-message
+          p Welcome to Debaco online store
+    
+    .row 
+      .col-12
+        .header-main
+          .inner-logo 
+            a(href="#")
+              img(src="", alt="")
+          .inner-icons
+            ul 
+              li 
+                a(href="#" class="user-btn")
+                  i(class="fa-solid fa-user")
+              li 
+                a(href="#" class="notification-btn")
+                  i(class="fa-solid fa-heart")
+              li 
+                a(href="#" class="minicart-btn")
+                  i(class="fa-solid fa-cart-shopping")
+              li 
+                a(href="#" class="bar-btn")  
+                  i(class="fa-solid fa-bars")
+      
+      .row 
+        .col-12 
+          .header-end 
+            .inner-menu 
+              ul 
+                li 
+                  a(href="/") Home 
+                li 
+                  a(href="/products") San pham
+            .inner-search 
+              form(
+                action="/search" 
+                method="GET"
+              )
+                .form-group 
+                  input(
+                    type="text"
+                    placeholder="Nhập từ khoá..."
+                    class="form-control"
+                    name="keyword"
+                  )
+                  button(
+                    type="submit"
+                    class="btn btn-primary"
+                  )   
+                    i(class="fa-solid fa-magnifying-glass")
+
+            
+        
