@@ -31,10 +31,10 @@ body {
 .body .main {
   position: relative;
   left: 150px;
-  width: calc(100% - 180px);
+  width: calc(100% - 80px);
 }
 
-.body .main .table {
+.body .main .card {
   width: calc(100% - 200px);
   margin-right: auto;
   margin-left: auto;
