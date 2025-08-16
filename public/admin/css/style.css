@@ -94,3 +94,9 @@ table img {
   height: auto;
 }
 /* End table */
+
+/* Pagination */
+.pagination {
+  margin: 0;
+}
+/* End pagination */
