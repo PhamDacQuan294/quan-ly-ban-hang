@@ -48,3 +48,18 @@ if(buttonsDelete.length > 0) {
   })
 }
 // End delete item
+
+// Form create product
+const formCreateProduct = document.querySelector("#form-create-product");
+
+if(formCreateProduct) {
+  formCreateProduct.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const redirectUrl = window.location.pathname + window.location.search;
+    formCreateProduct.action += `?redirect=${encodeURIComponent(redirectUrl)}`;
+
+    formCreateProduct.submit();
+  })
+}
+// End form create product
