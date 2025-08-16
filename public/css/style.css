@@ -278,10 +278,11 @@
   margin-top: 10px;
 }
 
-.list-products .product-name {
+.list-products .product-name a {
   font-size: 18px;
   font-weight: bold;
   color: #333;
+  text-decoration: none;
 }
 
 .list-products .product-description {

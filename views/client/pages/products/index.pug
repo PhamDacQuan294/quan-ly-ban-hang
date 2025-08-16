@@ -25,7 +25,8 @@ block main
               .inner-image  
                 img(src=item.thumbnail alt=item.title)
               .product-info
-                h3.product-name #{item.title}
+                h3.product-name 
+                  a(href=`/products/${item.slug}`) #{item.title}
                 p.product-description #{item.description}
                 .product-price
                   span.price-new #{item.priceNew}$
