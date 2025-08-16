@@ -65,8 +65,6 @@ module.exports.changeMulti = async (req, res) => {
   const ids = req.body.ids.split(", ");
   const redirectUrl = req.query.redirect;
 
-  console.log(type);
-
   switch (type) {
     case "active":
       await Product.updateMany({ _id: { $in: ids }}, { status: "active"});
