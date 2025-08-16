@@ -90,11 +90,17 @@ block main
                       button-change-status
                       class="badge badge-danger"
                     ) Dừng hoạt động
-                td 
+                td  
+                  a.mr-1(
+                    href=`${prefixAdmin}/products/detail/${item.id}`
+                    class="btn btn-secondary btn-sm"
+                  ) chi tiết
+
                   a(
                     href=`${prefixAdmin}/products/edit/${item.id}`
                     class="btn btn-warning btn-sm"
                   ) Sửa
+
                   button(
                     class="btn btn-danger btn-sm ml-1"
                     button-delete
