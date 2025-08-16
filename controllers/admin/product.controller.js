@@ -78,3 +78,18 @@ module.exports.changeMulti = async (req, res) => {
 
   res.redirect(redirectUrl);
 }
+
+// [PATCH] /admin/products/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  const redirectUrl = req.query.redirect;
+
+  await Product.updateOne({
+    _id: id
+  }, {
+    deleted: true,
+    deletedAt: new Date()
+  });
+
+  res.redirect(redirectUrl);
+}
