@@ -91,3 +91,34 @@ module.exports.editPatch = async (req, res) => {
 
   res.redirect(`${systemConfig.prefixAdmin}/products-category/edit/${id}`);
 }
+
+// [GET] /admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    }
+
+    const productCategory = await ProductCategory.findOne(find);
+
+    let parentName = "";
+
+    if(productCategory.parent_id) {
+      const findParent = {
+        _id: productCategory.parent_id
+      };
+      const parent = await ProductCategory.findOne(findParent);
+      parentName = parent.title;
+    }
+
+    res.render("admin/pages/products-category/detail", {
+      pageTitle: productCategory.title,
+      productCategory: productCategory,
+      parentName: parentName
+    })
+  } catch (error) {
+    console.log(error);
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+}
