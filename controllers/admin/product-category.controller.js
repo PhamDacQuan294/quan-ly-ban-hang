@@ -1,4 +1,5 @@
 const ProductCategory = require("../../models/product-category.model");
+const filterStatusHelper = require("../../helpers/filterStatus");
 
 const systemConfig = require("../../config/system");
 
@@ -6,18 +7,98 @@ const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
+  const filterStatus = filterStatusHelper(req.query);
+
   let find = {
     deleted: false
   };
 
+  if(req.query.status) {
+    find.status = req.query.status;
+  }
+  
   const records = await ProductCategory.find(find);
 
   const newRecords = createTreeHelper.tree(records);
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Danh mục sản phẩm",
-    records: newRecords
+    records: newRecords,
+    filterStatus: filterStatus,
   });
+}
+
+// [PATCH] /admin/products-category/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+  const redirectUrl = req.query.redirect;
+
+  await ProductCategory.updateOne({
+    _id: id
+  }, {
+    status: status
+  });
+
+  req.flash("success", "Cập nhật trạng thái thành công!");
+
+  res.redirect(redirectUrl);
+}
+
+// [PATCH] /admin/products-category/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+  const redirectUrl = req.query.redirect;
+
+  switch (type) {
+    case "active":
+      await ProductCategory.updateMany({ _id: { $in: ids }}, { status: "active"});
+      req.flash("success", `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`);
+      break;
+    case "inactive":
+      await ProductCategory.updateMany({ _id: { $in: ids }}, { status: "inactive"});
+      req.flash("success", `Cập nhật trạng thái thành công ${ids.length} sản phẩm!`);
+      break;
+    case "delete-all":
+      await ProductCategory.updateMany({ _id: { $in: ids }}, {
+        deleted: true,
+        deletedAt: new Date()
+      });
+      req.flash("success", `Xoá thành công ${ids.length} sản phẩm!`);
+      break;
+    case "change-position":
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        position = parseInt(position);
+        await ProductCategory.updateOne({ _id: id }, {
+          position: position
+        });
+      }
+      req.flash("success", `Thay đổi vị trí thành công ${ids.length} sản phẩm!`);
+      break;
+    default:
+      break;
+  }
+
+  res.redirect(redirectUrl);
+}
+
+// [PATCH] /admin/products/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  const redirectUrl = req.query.redirect;
+
+  await ProductCategory.updateOne({
+    _id: id
+  }, {
+    deleted: true,
+    deletedAt: new Date()
+  });
+
+  req.flash("success", `Xoá sản phẩm thành công!`);
+
+  res.redirect(redirectUrl);
 }
 
 // [GET] /admin/products-category/create
