@@ -66,3 +66,20 @@ module.exports.editPatch = async (req, res) => {
     req.flash("error", "Cập nhật lỗi!");
   }
 }
+
+// [PATCH] /admin/roles/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  const redirectUrl = req.query.redirect;
+
+  await Role.updateOne({
+    _id: id
+  }, {
+    deleted: true,
+    deletedAt: new Date()
+  });
+
+  req.flash("success", `Xoá sản phẩm thành công!`);
+
+  res.redirect(redirectUrl);
+}
