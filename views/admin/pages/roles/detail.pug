@@ -1,0 +1,18 @@
+extends ../../layouts/default.pug
+
+block main 
+  h1.title Chi tiết nhóm quyền
+
+  .card
+    .card-header Chi tiết nhóm quyền
+      .card-body
+        if (role.title) 
+          h1(class="mb-4") #{role.title}
+        
+        if (role.description)
+          div(class="mb-4") !{role.description}
+
+        a(
+          href=`${prefixAdmin}/roles/edit/${role.id}`
+          class="btn btn-warning"
+        ) Chỉnh sửa

@@ -83,3 +83,22 @@ module.exports.deleteItem = async (req, res) => {
 
   res.redirect(redirectUrl);
 }
+
+// [GET] /admin/roles/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    };
+
+    const role = await Role.findOne(find);
+
+    res.render("admin/pages/roles/detail", {
+      pageTitle: role.title,
+      role: role
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/roles`);
+  }
+}
