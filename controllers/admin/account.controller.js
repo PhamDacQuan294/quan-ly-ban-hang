@@ -115,7 +115,7 @@ module.exports.editPatch = async (req, res) => {
   res.redirect(`${systemConfig.prefixAdmin}/accounts/edit/${id}`);
 }
 
-// [DELETE] /admin/roles/delete/:id
+// [DELETE] /admin/accounts/delete/:id
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
 
@@ -129,4 +129,32 @@ module.exports.deleteItem = async (req, res) => {
   req.flash("success", `Xoá tài khoản thành công!`);
 
   res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+}
+
+
+// [GET] /admin/accounts/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    };
+
+    const account = await Account.findOne(find);
+
+    const role = await Role.findOne({
+      _id: account.role_id
+    });
+
+    if(role) {
+      account.role = role.title;
+    }
+
+    res.render("admin/pages/accounts/detail", {
+      pageTitle: "Trang chi tiết",
+      account: account,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+  }
 }
