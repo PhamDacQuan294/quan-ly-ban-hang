@@ -1,31 +1,32 @@
 extends ../../layouts/default.pug
 
 block main 
-  h1.title Chi tiết tài khoản
-  
-  .card
-    .card-header Chi tiết tài khoản
-      .card-body
-        if (account.fullName) 
-          h1(class="mb-4") #{account.fullName}
-        
-        if (account.email)
-          div(class="mb-4") Email: <b>#{account.email}</b>
-        
-        if (account.phone)
-          div(class="mb-4") Phone: <b>#{account.phone}</b>
-        
-        if (account.role)
-          div(class="mb-4") Role: <b>#{account.role}</b>
+  if(role.permissions.includes("accounts_view"))
+    h1.title Chi tiết tài khoản
+    
+    .card
+      .card-header Chi tiết tài khoản
+        .card-body
+          if (account.fullName) 
+            h1(class="mb-4") #{account.fullName}
+          
+          if (account.email)
+            div(class="mb-4") Email: <b>#{account.email}</b>
+          
+          if (account.phone)
+            div(class="mb-4") Phone: <b>#{account.phone}</b>
+          
+          if (account.role)
+            div(class="mb-4") Role: <b>#{account.role}</b>
 
-        if (account.thumbnail)
-          div(class="mb-4")
-            img(
-              src=account.thumbnail 
-              style="width: 100px"
-            )
-        a(
-          href=`${prefixAdmin}/accounts/edit/${account.id}`
-          class="btn btn-warning"
-        ) Chỉnh sửa
-        
+          if (account.thumbnail)
+            div(class="mb-4")
+              img(
+                src=account.thumbnail 
+                style="width: 100px"
+              )
+          a(
+            href=`${prefixAdmin}/accounts/edit/${account.id}`
+            class="btn btn-warning"
+          ) Chỉnh sửa
+          
