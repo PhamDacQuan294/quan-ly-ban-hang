@@ -225,7 +225,7 @@ module.exports.createPost = async (req, res) => {
 
 // [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
-  try {
+ try {
     const find = {
       deleted: false,
       _id: req.params.id
@@ -233,9 +233,16 @@ module.exports.edit = async (req, res) => {
 
     const product = await Product.findOne(find);
 
+    const category = await ProductCategory.find({
+      deleted: false
+    });
+
+    const newCategory = createTreeHelper.tree(category);
+    
     res.render("admin/pages/products/edit", {
       pageTitle: "Chinh sua san pham",
-      product: product
+      product: product,
+      category: newCategory
     });
   } catch (error) {
     res.redirect(`${systemConfig.prefixAdmin}/products`);
@@ -251,11 +258,15 @@ module.exports.editPatch = async (req, res) => {
   req.body.stock = parseInt(req.body.stock);
   req.body.position = parseInt(req.body.position);
 
+  if(req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
+
   try {
     const updatedBy = {
-      account_id: req.locals.user.id,
+      account_id: res.locals.user.id,
       updatedAt: new Date()
-    };
+    }
 
     await Product.updateOne({ _id: id }, {
       ...req.body,
@@ -263,7 +274,8 @@ module.exports.editPatch = async (req, res) => {
     });
     req.flash("success", `Cập nhật thành công sản phẩm!`);
   } catch (error) {
-    req.flash("success", `Cập nhật chưa thành công sản phẩm!`);
+    console.log(error)
+    req.flash("error", `Cập nhật chưa thành công sản phẩm!`);
   }
 
   res.redirect(`${systemConfig.prefixAdmin}/products/edit/${id}`);
