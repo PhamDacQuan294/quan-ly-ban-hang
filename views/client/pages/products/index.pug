@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/product-layout.pug
 block main 
   //- breadcrumb area start
   .breadcrumb-area
@@ -16,18 +16,4 @@ block main
     //- List-products
   .list-products
     .container
-      .row.g-4
-        each item in products
-          .col-12.col-md-6.col-lg-4
-            .inner-item.featured
-              .highlight-badge Mới
-              .discount #{item.discountPercentage}%
-              .inner-image  
-                img(src=item.thumbnail alt=item.title)
-              .product-info
-                h3.product-name 
-                  a(href=`/products/${item.slug}`) #{item.title}
-                p.product-description #{item.description}
-                .product-price
-                  span.price-new #{item.priceNew}$
-                  span.price-old #{item.price}$
+      +product-grid(products)

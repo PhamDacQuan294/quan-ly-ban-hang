@@ -1,1 +1,7 @@
 extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+
+block main 
+  .list-products
+    .container
+      +product-grid(productsFeatured)

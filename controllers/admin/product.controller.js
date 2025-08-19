@@ -240,7 +240,7 @@ module.exports.edit = async (req, res) => {
     const newCategory = createTreeHelper.tree(category);
     
     res.render("admin/pages/products/edit", {
-      pageTitle: "Chinh sua san pham",
+      pageTitle: "Chỉnh sửa sản phẩm",
       product: product,
       category: newCategory
     });
@@ -274,7 +274,6 @@ module.exports.editPatch = async (req, res) => {
     });
     req.flash("success", `Cập nhật thành công sản phẩm!`);
   } catch (error) {
-    console.log(error)
     req.flash("error", `Cập nhật chưa thành công sản phẩm!`);
   }
 
