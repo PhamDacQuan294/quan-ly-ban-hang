@@ -22,10 +22,11 @@ header.header
                   i(class="fa-solid fa-user")
               li 
                 a(href="#" class="notification-btn")
-                  i(class="fa-solid fa-heart")
+                  i(class="fa-solid fa-heart") 
               li 
-                a(href="#" class="minicart-btn")
-                  i(class="fa-solid fa-cart-shopping")
+                a(href="/cart" class="minicart-btn")
+                  i(class="fa-solid fa-cart-shopping") 
+                  a (#{miniCart ? miniCart.totalQuantity: 0})
               li 
                 a(href="#" class="bar-btn")  
                   i(class="fa-solid fa-bars")
