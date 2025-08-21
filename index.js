@@ -26,9 +26,7 @@ const port = process.env.PORT;
 const server = http.createServer(app);
 const io = new Server(server);
 
-io.on('connection', (socket) => {
-  console.log('a user connected', socket.id);
-})
+global._io = io;
 // End SocketIO
 
 app.use(methodOverride('_method'))
@@ -68,6 +66,6 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
