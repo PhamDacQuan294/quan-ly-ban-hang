@@ -39,7 +39,7 @@ module.exports = (res) => {
         _id: userId
       });
       const lengthAcceptFriends = infoUserB.acceptFriends.length;
-      
+
       socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
         userId: userId,
         lengthAcceptFriends: lengthAcceptFriends
@@ -109,6 +109,16 @@ module.exports = (res) => {
           $pull: { requestFriends: myUserId }
         });
       }
+      // Lấy ra độ dài acceptFriends của B và trả về cho B
+      const infoUserB = await User.findOne({
+        _id: userId
+      });
+      const lengthAcceptFriends = infoUserB.acceptFriends.length;
+
+      socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
+        userId: userId,
+        lengthAcceptFriends: lengthAcceptFriends
+      });
     });
 
      // Chức năng chấp nhận kết bạn
