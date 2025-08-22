@@ -31,8 +31,19 @@ module.exports = (res) => {
           _id: myUserId
         }, {
           $push: { requestFriends: userId }
-        })
+        });
       }
+
+      // Lấy ra độ dài acceptFriends của B và trả về cho B
+      const infoUserB = await User.findOne({
+        _id: userId
+      });
+      const lengthAcceptFriends = infoUserB.acceptFriends.length;
+      
+      socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
+        userId: userId,
+        lengthAcceptFriends: lengthAcceptFriends
+      });
     });
 
     // Chức năng huỷ gửi yêu cầu
@@ -103,7 +114,7 @@ module.exports = (res) => {
      // Chức năng chấp nhận kết bạn
     socket.on("CLIENT_ACCEPT_FRIEND", async (userId) => {
       const myUserId = res.locals.user.id;
-      
+
       // Thêm {user_id, room_chat_id} của A vào friendList của B
       // Xoá id của A trong acceptFriends của B
       const existIdAinB = await User.findOne({
