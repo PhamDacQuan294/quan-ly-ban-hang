@@ -38,7 +38,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
 
   body.insertBefore(div, boxTyping);
   
-  body.scrollTop = bodyChat.scrollHeight;
+  body.scrollTop = body.scrollHeight;
 });
 // End SERVER_RETURN_MESSAGE
 
