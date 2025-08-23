@@ -7,7 +7,7 @@ module.exports.cartId = async (req, res, next) => {
 
     const expiresCookie = 365 * 24 * 60 * 60 * 1000;
 
-    res.cookie("cartId", cart.id, {
+    res.cookie("cartId", cart._id, {
       expires: new Date(Date.now() + expiresCookie)
     });
   } else {
