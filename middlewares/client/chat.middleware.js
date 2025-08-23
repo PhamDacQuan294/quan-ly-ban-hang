@@ -9,8 +9,6 @@ module.exports.isAccess = async (req, res, next) => {
     "users.user_id": userId,
     deleted: false
   });
-
-  console.log(existUserInRoomChat);
   
   if(existUserInRoomChat) {
     next();
