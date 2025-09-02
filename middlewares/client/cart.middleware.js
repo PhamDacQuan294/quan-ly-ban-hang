@@ -15,9 +15,10 @@ module.exports.cartId = async (req, res, next) => {
       _id: req.cookies.cartId
     });
 
-    cart.totalQuantity = cart.products.reduce((sum, item) => sum + item.quantity, 0);
-
-    res.locals.miniCart = cart;
+    if (cart) {
+      cart.totalQuantity = cart.products.reduce((sum, item) => sum + item.quantity, 0);
+      res.locals.miniCart = cart;
+    }
   }
 
   next();
