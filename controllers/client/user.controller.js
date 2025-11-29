@@ -27,10 +27,14 @@ module.exports.registerPost = async (req, res) => {
 
   req.body.password = md5(req.body.password);
 
+  // Tạo tokenUser ngẫu nhiên trước khi tạo user
+  const crypto = require("crypto");
+  req.body.tokenUser = crypto.randomBytes(32).toString("hex"); // tạo tokenUser duy nhất
+
   const user = new User(req.body);
   await user.save();
 
-  res.cookie("tokenUser", user.tokenUser);
+  res.cookie("tokenUser", user.tokenUser, { httpOnly: true });
 
   req.flash("success", "Đăng ký tài khoản thành công!");
 

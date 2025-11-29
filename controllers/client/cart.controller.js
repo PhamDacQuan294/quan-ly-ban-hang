@@ -11,7 +11,7 @@ module.exports.index = async (req, res) => {
     _id: cartId
   });
 
-  if(cart.products.length > 0) {
+  if(cart?.products?.length > 0) {
     for(const item of cart.products) {
       const productId = item.product_id;
       const productInfo = await Product.findOne({
