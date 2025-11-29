@@ -4,6 +4,9 @@ module.exports.isAccess = async (req, res, next) => {
   const roomChatId = req.params.roomChatId;
   const userId = res.locals.user.id;
 
+  console.log(roomChatId);
+  console.log(userId);
+  
   const existUserInRoomChat = await RoomChat.findOne({
     _id: roomChatId,
     "users.user_id": userId,

@@ -106,10 +106,11 @@ module.exports.friends = async (req, res) => {
     _id: { $in: friendListId } ,
     status: "active",
     deleted: false  
-  }).select("id avatar fullName statusOnline");
+  }).select("id avatar fullName statusOnline").lean();
+
 
   for (const user of users) {
-    const infoFriend = friendList.find(friend => friend.user_id == user.id);
+    const infoFriend = friendList.find(friend => friend.user_id == user._id.toString());
     user.infoFriend = infoFriend;
   }
 

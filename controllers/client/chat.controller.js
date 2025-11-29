@@ -7,6 +7,8 @@ const chatSocket = require("../../sockets/client/chat.socket");
 module.exports.index = async (req, res) => {
   const roomChatId = req.params.roomChatId;
 
+  console.log(roomChatId);
+
   chatSocket(req, res);
   // Get data from database
   const chats = await Chat.find({
